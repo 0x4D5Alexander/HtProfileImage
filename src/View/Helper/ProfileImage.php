@@ -215,9 +215,7 @@ class ProfileImage extends AbstractHtmlElement
             $url = $this->getView()->url('zfcuser/htimagedisplay', ['id' => $user->getId()]);
         }
 
-        $this->setAttribs([
-            'src' => $url
-        ]);
+        $this->addAttrib('src', $url);
 
         return $this;
     }
@@ -242,6 +240,25 @@ class ProfileImage extends AbstractHtmlElement
         return '<img'
             . $this->htmlAttribs($this->getAttribs())
             . $this->getClosingBracket();
+    }
+
+    /**
+     *
+     * Add attribs for imgage tag
+     *
+     * @param array|string $name
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function addAttrib($name, $value = null)
+    {
+        if (null !== $value) {
+            $this->attribs[$name] = $value;
+        } else {
+            $this->attribs += (array) $name;
+        }
+        return $this;
     }
 
     /**
